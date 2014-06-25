@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean id="dbRootPlaceholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="systemPropertiesMode" value="2" />
+        <property name="locations">
+            <list>
+                <value>classpath:botoncmr.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="originalDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">        
+        <property name="driverClass" value="${jdbc.driver.class}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="initialPoolSize" value="${jdbc.initial.pool.size}" />
+        <property name="minPoolSize" value="${jdbc.min.pool.size}" />
+        <property name="maxPoolSize" value="${jdbc.max.pool.size}" />
+        <property name="acquireIncrement" value="${jdbc.acquire.increment}" />
+        <property name="idleConnectionTestPeriod" value="${jdbc.idle.test.period}" />
+        <property name="autoCommitOnClose" value="${jdbc.autocommit.onclose}"/>
+    </bean>
+        
+</beans>
